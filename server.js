@@ -4,21 +4,22 @@ const inquirer = require('inquirer');
 
 // Connect to database
 const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    user: 'root',
-    password: 'rootroot',
-    database: 'employee_db'
-  },
-  console.log(`Connected to the employee_db database.`)
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'rootroot',
+        database: 'employee_db'
+    },
+    console.log(`Connected to the employee_db database.`)
 );
+// main function using the inquirer npm package to get employee tracker choices
 function main() {
     inquirer.prompt([{
-            name: 'mainMenu',
-            type: 'list',
-            message: "Please select an option: ",
-            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
-        }])
+        name: 'mainMenu',
+        type: 'list',
+        message: "Please select an option: ",
+        choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
+    }])
         .then(response => {
             switch (response.mainMenu) {
                 case 'View all departments':
@@ -49,6 +50,7 @@ function main() {
         });
 
 };
+// function selecting the table from departments and viewing all of them
 function viewDepartments() {
     db.query('SELECT * FROM department', (error, result) => {
         if (error) throw error;
@@ -59,7 +61,7 @@ function viewDepartments() {
         main();
     });
 };
-
+// function selecting the table from role and viewing all of them
 function viewRoles() {
     db.query('SELECT * FROM role', (error, result) => {
         if (error) throw error;
@@ -70,7 +72,7 @@ function viewRoles() {
         main();
     });
 };
-
+// function selecting the table from employee and viewing all of them
 function viewEmployees() {
     db.query('SELECT * FROM employee', (error, result) => {
         if (error) throw error;
@@ -81,13 +83,13 @@ function viewEmployees() {
         main();
     });
 };
-
+// function adding a department to the table departments
 function addDepartment() {
     inquirer.prompt([{
-            name: 'name',
-            type: 'input',
-            message: 'Enter the department name: '
-        }])
+        name: 'name',
+        type: 'input',
+        message: 'Enter the department name: '
+    }])
         .then(response => {
             db.query('INSERT INTO department(name) VALUES (?)', [response.name], (error, result) => {
                 if (error) throw error;
@@ -96,33 +98,33 @@ function addDepartment() {
             viewDepartments();
         });
 };
-
+//function to add a role to the role table amd its corresponding data
 function addRole() {
     inquirer.prompt([{
-                name: 'name',
-                type: 'input',
-                message: 'Enter the role name: '
-            },
-            {
-                name: 'salary',
-                type: 'number',
-                message: 'Enter the salary: ',
-                validate: salary => {
-                    if (salary) {
-                        return true;
-                    } else {
-                        console.log('Please enter a number!');
-                        return false;
-                    }
-                }
-            },
-            {
-                name: 'department',
-                type: 'list',
-                message: 'Select the department:',
-                choices: getDepartments()
+        name: 'name',
+        type: 'input',
+        message: 'Enter the role name: '
+    },
+    {
+        name: 'salary',
+        type: 'number',
+        message: 'Enter the salary: ',
+        validate: salary => {
+            if (salary) {
+                return true;
+            } else {
+                console.log('Please enter a number!');
+                return false;
             }
-        ])
+        }
+    },
+    {
+        name: 'department',
+        type: 'list',
+        message: 'Select the department:',
+        choices: getDepartments()
+    }
+    ])
         .then(response => {
             var responseID = 0;
 
@@ -145,31 +147,31 @@ function addRole() {
             });
         });
 };
-
+// function that adds an employee to the employee table and its corresponding data
 function addEmployee() {
     inquirer.prompt([{
-                name: 'firstName',
-                type: 'input',
-                message: 'Enter the employee first name: '
-            },
-            {
-                name: 'lastName',
-                type: 'input',
-                message: 'Enter the employee last name: '
-            },
-            {
-                name: 'role',
-                type: 'list',
-                message: 'Select the role:',
-                choices: getRoles()
-            },
-            {
-                name: 'manager',
-                type: 'list',
-                message: 'Select the manager:',
-                choices: getEmployees()
-            }
-        ])
+        name: 'firstName',
+        type: 'input',
+        message: 'Enter the employee first name: '
+    },
+    {
+        name: 'lastName',
+        type: 'input',
+        message: 'Enter the employee last name: '
+    },
+    {
+        name: 'role',
+        type: 'list',
+        message: 'Select the role:',
+        choices: getRoles()
+    },
+    {
+        name: 'manager',
+        type: 'list',
+        message: 'Select the manager:',
+        choices: getEmployees()
+    }
+    ])
         .then(response => {
             var roleID = 0;
             var managerID = 0;
@@ -212,19 +214,19 @@ function addEmployee() {
             });
         });
 };
-
+//function that updates the employee info
 function updateEmployee() {
     inquirer.prompt([{
-                name: 'employee',
-                type: 'number',
-                message: 'Enter the employee ID of the employee you wish to update:'
-            },
-            {
-                name: 'role',
-                type: 'number',
-                message: 'Enter the role ID you wish to update the employee to:'
-            }
-        ])
+        name: 'employee',
+        type: 'number',
+        message: 'Enter the employee ID of the employee you wish to update:'
+    },
+    {
+        name: 'role',
+        type: 'number',
+        message: 'Enter the role ID you wish to update the employee to:'
+    }
+    ])
         .then(response => {
             db.query('UPDATE employee SET role_id = ? WHERE id = ? ', [response.role, response.employee], (error, result) => {
                 if (error) throw error;
