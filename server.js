@@ -1,13 +1,7 @@
-// const npm packages
-const express = require('express');
+// const npm packages;
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-//const port
-const PORT = process.env.PORT || 3001;
-const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 // Connect to database
 const db = mysql.createConnection(
   {
@@ -52,9 +46,9 @@ function main() {
                     db.end();
                     break;
             }
-        })
+        });
 
-}
+};
 function viewDepartments() {
     db.query('SELECT * FROM department', (error, result) => {
         if (error) throw error;
@@ -63,8 +57,8 @@ function viewDepartments() {
         console.table(result);
 
         main();
-    })
-}
+    });
+};
 
 function viewRoles() {
     db.query('SELECT * FROM role', (error, result) => {
@@ -74,8 +68,8 @@ function viewRoles() {
         console.table(result);
 
         main();
-    })
-}
+    });
+};
 
 function viewEmployees() {
     db.query('SELECT * FROM employee', (error, result) => {
@@ -85,8 +79,8 @@ function viewEmployees() {
         console.table(result);
 
         main();
-    })
-}
+    });
+};
 
 function addDepartment() {
     inquirer.prompt([{
@@ -100,8 +94,8 @@ function addDepartment() {
             })
 
             viewDepartments();
-        })
-}
+        });
+};
 
 function addRole() {
     inquirer.prompt([{
@@ -148,9 +142,9 @@ function addRole() {
                 })
 
                 viewRoles();
-            })
-        })
-}
+            });
+        });
+};
 
 function addEmployee() {
     inquirer.prompt([{
@@ -214,10 +208,10 @@ function addEmployee() {
                     })
 
                     viewEmployees();
-                })
-            })
-        })
-}
+                });
+            });
+        });
+};
 
 function updateEmployee() {
     inquirer.prompt([{
@@ -236,9 +230,9 @@ function updateEmployee() {
                 if (error) throw error;
 
                 viewEmployees();
-            })
-        })
-}
+            });
+        });
+};
 
 function getDepartments() {
     let departments = [];
@@ -251,7 +245,7 @@ function getDepartments() {
     })
 
     return departments;
-}
+};
 
 function getRoles() {
     let roles = [];
@@ -264,7 +258,7 @@ function getRoles() {
     })
 
     return roles;
-}
+};
 
 function getEmployees() {
     let firstNames = [];
@@ -276,20 +270,20 @@ function getEmployees() {
 
         response.forEach(first_name => {
             firstNames.push(first_name.first_name);
-        })
+        });
 
         db.query('SELECT last_name FROM employee', (error, response) => {
             if (error) throw error;
 
             response.forEach(last_name => {
                 lastNames.push(last_name.last_name);
-            })
+            });
 
             for (var i = 0; i < firstNames.length; i++) {
                 employees[i] = firstNames[i] + " " + lastNames[i];
             }
-        })
-    })
+        });
+    });
 
     return employees;
 }
@@ -302,7 +296,7 @@ db.connect(err => {
     console.log('WELCOME TO EMPLOYEE TRACKER!' + '\n');
 
     main();
-})
+});
 
 
 
