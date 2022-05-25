@@ -1,9 +1,22 @@
-# SQL---Employee-tracker
+# SQL-Employee Tracker
+![apace](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
+## Description
 ```md
 AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
 SO THAT I can organize and plan my business
 ```
+## Table of Contents
+* [Description](#description)
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
+## Installation
+
+## Usage
 ```md
 GIVEN a command-line application that accepts user input
 WHEN I start the application
@@ -23,3 +36,15 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
+## License
+
+This application is covered by the Apache v2.0 License, the terms of which can be found [here](https://www.apache.org/licenses/LICENSE-2.0.txt).
+    
+## Contributing
+[GitHub Profile](https://github.com/AnthonyDiBlasio/)
+## Tests
+none
+## Questions
+[GitHub Profile](https://github.com/AnthonyDiBlasio/)  
+I can be reached at anthony.diblasio11@gmail.com.
+

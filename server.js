@@ -41,7 +41,7 @@ function main() {
                     addEmployee();
                     break;
                 case 'Update an employee role':
-                    updateEmployee();
+                    EmployeeUpdate();
                     break;
                 case 'Exit':
                     db.end();
@@ -215,7 +215,7 @@ function addEmployee() {
         });
 };
 //function that updates the employee info
-function updateEmployee() {
+function EmployeeUpdate() {
     inquirer.prompt([{
         name: 'employee',
         type: 'number',
@@ -295,10 +295,7 @@ db.connect(err => {
     if (err) throw err;
 
     console.log('connected as id ' + db.threadId + '\n');
-    console.log('WELCOME TO EMPLOYEE TRACKER!' + '\n');
+    console.log('WELCOME TO EMPLOYEE TRACKER! LETS GET STARTED!' + '\n');
 
     main();
 });
-
-
-
